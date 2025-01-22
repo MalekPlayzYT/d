@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Clone</title>
+    <style>
+        /* General Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+        }
+        .modal input {
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+        .modal button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f0c14b;
+            border: 1px solid #a88734;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .modal button:hover {
+            background-color: #e2b230;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #232f3e;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    transition: border 0.3s;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: #ff9900;
+}
+
+.search-bar select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+/* Product Container */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.product-details {
+    text-align: center;
+}
+
+.product-details h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.product-details p {
+    color: #666;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.product-details .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #b12704;
+    margin-top: 10px;
+}
+
+/* Button */
+.product button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff9900;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.product button:hover {
+    background-color: #e68900;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .search-bar input {
+        width: 250px;
+    }
+
+    .container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Amazon Clone</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search products...">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="technology">Technology</option>
+                <option value="technology">Houses</option>
+                <option value="technology">Toys</option>
+            </select>
+        </div>
+    </header>
+    <div class="container" id="productContainer">
+        <div class="product" data-category="technology">
+            <img src="https://btech.com/media/catalog/product/cache/d03d3d2a850049ac18b0f513075e81be/i/p/iphone-15-pro-natural_natural_titanium_5.jpg" alt="Smartphone">
+            <div class="product-details">
+                <h3>IPhone 15</h3>
+                <p>Latest model with high-end features.</p>
+                <p class="price">$700</p>
+                <button class="buy-now" data-name="iphone" data-price="699">Buy Now</button>
+            </div>
+        </div>
+        <div class="product" data-category="technology">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlVjE5aLFbKjQOLDBQRkRVRFbw1A8mnzH3SA&s" alt="Smartphone">
+            <div class="product-details">
+                <h3>Elevator</h3>
+                <p>Latest model with high-end features.</p>
+                <p class="price">$2000</p>
+                <button class="buy-now" data-name="elvator" data-price="2000">Buy Now</button>
+            </div>
+        </div>
+        <div class="product" data-category="technology">
+            <img src="https://i0.wp.com/topstore-eg.com/wp-content/uploads/2022/12/macbook-air-space-gray-top-store.png?fit=466%2C434&ssl=1" alt="Laptop">
+            <div class="product-details">
+                <h3>Laptop</h3>
+                <p>High-performance laptop for work and play.</p>
+                <p class="price">$999</p>
+                <button class="buy-now" data-name="laptop" data-price="999">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for credit card info -->
+    <div class="modal" id="creditCardModal">
+        <div class="modal-content">
+            <h3>Enter Credit Card Info</h3>
+            <input type="text" id="cardNumber" placeholder="Enter first 6 digits of your card" maxlength="6">
+            <button id="submitCardInfo">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const productContainer = document.getElementById('productContainer');
+        const products = document.querySelectorAll('.product');
+
+        const creditCardModal = document.getElementById('creditCardModal');
+        const submitCardInfoButton = document.getElementById('submitCardInfo');
+        const cardNumberInput = document.getElementById('cardNumber');
+
+        function filterProducts() {
+            const searchText = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+
+            products.forEach(product => {
+                const productName = product.querySelector('h3').textContent.toLowerCase();
+                const productCategory = product.getAttribute('data-category');
+
+                const matchesSearch = productName.includes(searchText);
+                const matchesCategory = selectedCategory === 'all' || productCategory === selectedCategory;
+
+                if (matchesSearch && matchesCategory) {
+                    product.style.display = 'flex';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', filterProducts);
+        categoryFilter.addEventListener('change', filterProducts);
+
+        const buyNowButtons = document.querySelectorAll('.buy-now');
+        
+        buyNowButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const productName = e.target.getAttribute('data-name');
+                const productPrice = e.target.getAttribute('data-price');
+                //alert(`Thank you for purchasing the ${productName} for $${productPrice}!`);
+                // Show modal to enter credit card info
+                creditCardModal.style.display = 'flex';
+            });
+        });
+
+        submitCardInfoButton.addEventListener('click', () => {
+            const cardNumber = cardNumberInput.value;
+            if (cardNumber.length === 6) {
+                alert(`Credit card info submitted! First 6 digits: ${cardNumber}`);
+                creditCardModal.style.display = 'none';  // Close the modal
+            } else {
+                alert('Please enter the first 6 digits of your card.');
+            }
+        });
+
+        // Close modal if clicked outside of the modal content
+        window.onclick = function(event) {
+            if (event.target === creditCardModal) {
+                creditCardModal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

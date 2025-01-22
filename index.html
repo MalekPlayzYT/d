@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Desktop</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            padding: 5px;
+        }
+
+        .desktop {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+            align-items: start;
+            padding: 20px;
+            height: calc(100vh - 40px);
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .app {
+            width: 80px;
+            margin: 10px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .app img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .add-app {
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: white;
+            color: black;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .add-app:hover {
+            background-color: lightgray;
+        }
+
+        .add-app-form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .add-app-form input {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .add-app-form button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop" id="desktop">
+        <!-- Default apps -->
+        <a class="app" href="email.html" target="_blank">
+            <img src="https://purepng.com/public/uploads/large/purepng.com-mail-iconsymbolsiconsapple-iosiosios-8-iconsios-8-721522596075clftr.png" alt="Google">
+            <span>Mail</span>
+        </a>
+        <a class="app" href="wallet.html" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Wallet_App_icon_iOS_12.png" alt="YouTube">
+            <span>Wallet</span>
+        </a>
+        <a class="app" href="amazon.html" target="_blank">
+            <img src="https://cdn.vox-cdn.com/thumbor/b3Hilihn-dxB4aJBvIF2_KrZpoY=/0x0:1200x630/1400x1400/filters:focal(600x315:601x316)/cdn.vox-cdn.com/uploads/chorus_asset/file/22259693/download.png" alt="Flights">
+            <span>Amazon</span>
+        </a>
+        <a class="app" href="flights.html" target="_blank">
+            <img src="https://help.apple.com/assets/6716BC9FE5D89C1A7D02A219/6716BCA0C3B14F6AF705E77C/en_GB/1307d5b1765f8f5ea7fd5432033b1cd8.png" alt="Flights">
+            <span>Flights</span>
+        </a>
+        <a class="app" href="jobs.html" target="_blank">
+            <img src="https://w7.pngwing.com/pngs/445/459/png-transparent-apple-health-care-fitness-gym-healthcare-medical-apple-apps-icon.png" alt="Flights">
+            <span>Jobs</span>
+        </a>
+        
+    </div>
+
+    <div class="taskbar">
+        <span>Taskbar</span>
+    </div>
+
+    <div class="add-app" id="addApp">+</div>
+
+    <div class="add-app-form" id="addAppForm">
+        <h3>Add a New App</h3>
+        <input type="text" id="appName" placeholder="App Name">
+        <input type="url" id="appLink" placeholder="App URL">
+        <input type="url" id="appIcon" placeholder="App Icon URL">
+        <button onclick="addApp()">Add App</button>
+        <button onclick="toggleAddAppForm()">Cancel</button>
+    </div>
+
+    <script>
+        const desktop = document.getElementById('desktop');
+        const addApp = document.getElementById('addApp');
+        const addAppForm = document.getElementById('addAppForm');
+
+        function toggleAddAppForm() {
+            addAppForm.style.display = addAppForm.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        addApp.addEventListener('click', toggleAddAppForm);
+
+        function addApp() {
+            const appName = document.getElementById('appName').value;
+            const appLink = document.getElementById('appLink').value;
+            const appIcon = document.getElementById('appIcon').value;
+
+            if (appName && appLink && appIcon) {
+                const app = document.createElement('a');
+                app.className = 'app';
+                app.href = appLink;
+                app.target = '_blank';
+                app.innerHTML = `
+                    <img src="${appIcon}" alt="${appName}">
+                    <span>${appName}</span>
+                `;
+                desktop.appendChild(app);
+                toggleAddAppForm();
+            } else {
+                alert('Please fill all fields.');
+            }
+        }
+    </script>
+</body>
+</html>

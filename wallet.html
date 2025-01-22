@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            width: 400px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #0056A3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header img {
+            width: 60px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .wallet-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .wallet-info p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .wallet-info strong {
+            color: #0056A3;
+        }
+
+        .secret {
+            padding: 20px;
+        }
+
+        .secret input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .secret button {
+            width: 100%;
+            background-color: #0056A3;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .secret button:hover {
+            background-color: #004080;
+        }
+
+        .hidden {
+            display: none;
+            padding: 20px;
+        }
+
+        .hidden input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .hidden .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .hidden button {
+            flex: 1;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hidden button:hover {
+            background-color: #218838;
+        }
+
+        .hidden button.remove {
+            background-color: #dc3545;
+        }
+
+        .hidden button.remove:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://img.freepik.com/free-photo/credit-card-front-side_187299-39233.jpg">
+            <h1>Wallet App</h1>
+        </div>
+        <div class="wallet-info">
+            <p>Credit Card Number:</p>
+            <p><strong>112-001</strong></p>
+            <p>Cash Balance: <strong id="balance">$0</strong></p>
+        </div>
+        <div class="secret">
+            <input type="password" id="secretCode" placeholder="Enter Secret Code">
+            <button onclick="accessSecretTab()">Access Secret Tab</button>
+        </div>
+        <div class="hidden" id="hiddenTab">
+            <input type="number" id="addAmount" placeholder="Amount to Add">
+            <input type="number" id="removeAmount" placeholder="Amount to Remove">
+            <div class="btn-group">
+                <button onclick="addMoney()">Add Money</button>
+                <button class="remove" onclick="removeMoney()">Remove Money</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Retrieve balance from localStorage or set default
+        let balance = localStorage.getItem('walletBalance') || 1000;
+        document.getElementById('balance').textContent = `$${balance}`;
+
+        function accessSecretTab() {
+            const code = document.getElementById('secretCode').value;
+            if (code === '12345') { // Replace '12345' with your desired secret code
+                document.getElementById('hiddenTab').style.display = 'block';
+            } else {
+                alert('Incorrect Secret Code');
+            }
+        }
+
+        function addMoney() {
+            const addAmount = parseFloat(document.getElementById('addAmount').value);
+            if (!isNaN(addAmount) && addAmount > 0) {
+                balance = parseFloat(balance) + addAmount;
+                localStorage.setItem('walletBalance', balance);
+                document.getElementById('balance').textContent = `$${balance}`;
+                alert('Money added successfully!');
+            } else {
+                alert('Enter a valid amount to add.');
+            }
+        }
+
+        function removeMoney() {
+            const removeAmount = parseFloat(document.getElementById('removeAmount').value);
+            if (!isNaN(removeAmount) && removeAmount > 0 && removeAmount <= balance) {
+                balance = parseFloat(balance) - removeAmount;
+                localStorage.setItem('walletBalance', balance);
+                document.getElementById('balance').textContent = `$${balance}`;
+                alert('Money removed successfully!');
+            } else {
+                alert('Enter a valid amount to remove or insufficient balance.');
+            }
+        }
+    </script>
+</body>
+</html>

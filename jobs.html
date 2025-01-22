@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+
+        .header {
+            background-color: #6aa300;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .flights-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .flight {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .flight:hover {
+            transform: scale(1.02);
+        }
+
+        .flight img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-right: 1px solid #ddd;
+        }
+
+        .flight-details {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .flight-details h3 {
+            margin: 0 0 10px;
+            font-size: 22px;
+            color: #6aa300;
+        }
+
+        .flight-details p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .flight-details button {
+            align-self: flex-start;
+            background-color: #6aa300;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .flight-details button:hover {
+            background-color: #79b707;
+        }
+
+        .booking-form {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .booking-form input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .booking-form button {
+            background-color: #6aa300;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .booking-form button:hover {
+            background-color: #83c509;
+        }
+
+        .close {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            align-self: flex-end;
+            font-size: 14px;
+        }
+
+        .close:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Avilable Jobs</div>
+
+    <div class="flights-container" id="flightsContainer">
+        <div class="flight">
+            <img src="https://via.placeholder.com/150" alt="Flight to Paris">
+            <div class="flight-details">
+                <h3>Street Cleaner</h3>
+                <p>Work Hours: 5H (Everyday)</p>
+                <p>Money: $100</p>
+                <button onclick="openBookingForm('Street Cleaner', 100)">Work Now</button>
+            </div>
+        </div>
+        <div class="flight">
+            <img src="https://via.placeholder.com/150" alt="Flight to New York">
+            <div class="flight-details">
+                <h3>House Maid</h3>
+                <p>Work Hours: 24H (5 Days)</p>
+                <p>Money: $400</p>
+                <button onclick="openBookingForm('House Maid', 400)">Work Now</button>
+            </div>
+        </div>
+        <div class="flight">
+            <img src="https://via.placeholder.com/150" alt="Flight to New York">
+            <div class="flight-details">
+                <h3>Pilot</h3>
+                <p>Work Hours: 8H (4 Days)</p>
+                <p>Money: $360</p>
+                <button onclick="openBookingForm('Pilot', 360)">Work Now</button>
+            </div>
+        </div>
+        <!-- Add more flights here -->
+    </div>
+
+    <div class="booking-form" id="bookingForm">
+        <button class="close" onclick="closeBookingForm()">X</button>
+        <h3 id="flightTitle">Book Your Flight</h3>
+        <p id="flightCost"></p>
+        <input type="text" id="passengers" placeholder="Your Note (why dould you be good at this job?)">
+        <input type="text" id="creditCard" placeholder="Credit Card Number">
+        <button onclick="submitBooking()">Submit</button>
+    </div>
+
+    <script>
+        const bookingForm = document.getElementById('bookingForm');
+        const flightTitle = document.getElementById('flightTitle');
+        const flightCost = document.getElementById('flightCost');
+
+        function openBookingForm(flightName, cost) {
+            flightTitle.innerText = flightName;
+            flightCost.innerText = `Cost: $${cost}`;
+            bookingForm.style.display = 'flex';
+        }
+
+        function closeBookingForm() {
+            bookingForm.style.display = 'none';
+        }
+
+        function submitBooking() {
+            const passengers = document.getElementById('passengers').value;
+            const creditCard = document.getElementById('creditCard').value;
+
+            if (!passengers || !creditCard) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            alert(`Booking Confirmed!\nFlight: ${flightTitle.innerText}\nPassengers: ${passengers}\nTotal Cost: $${parseInt(flightCost.innerText.replace('Cost: $', '')) * passengers}`);
+            closeBookingForm();
+        }
+    </script>
+</body>
+</html>

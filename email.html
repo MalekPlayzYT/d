@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Clone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #d93025;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .mail-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .mail {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .mail:hover {
+            background-color: #f7f7f7;
+        }
+
+        .mail h4 {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .mail span {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .email-content {
+            padding: 20px;
+            display: none;
+        }
+
+        .email-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .email-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .back-button {
+            display: none;
+            background-color: #d93025;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+            
+            
+        }
+
+        .back-button:hover {
+            background-color: #c5221f;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">My Gmail</div>
+        <div class="mail-list" id="mailList">
+            <!-- Emails will be dynamically added here -->
+        </div>
+        <div class="email-content" id="emailContent">
+            <!-- Full email details will appear here -->
+        </div> <br>
+        <button class="back-button" id="backButton" onclick="goBack()">Back to Inbox</button>
+    </div>
+
+    <script>
+        const emails = [
+            {
+                id: 1,
+                subject: "Welcome to Mail",
+                sender: "Mail Creator",
+                content: "Hello! Thank you for using this Mail."
+            },
+            
+        ];
+
+        const mailList = document.getElementById('mailList');
+        const emailContent = document.getElementById('emailContent');
+        const backButton = document.getElementById('backButton');
+
+        // Render emails in the list
+        emails.forEach(email => {
+            const mailDiv = document.createElement('div');
+            mailDiv.className = 'mail';
+            mailDiv.innerHTML = `
+                <h4>${email.subject}</h4>
+                <span>${email.sender}</span>
+            `;
+            mailDiv.onclick = () => showEmail(email);
+            mailList.appendChild(mailDiv);
+        });
+
+        // Show full email content
+        function showEmail(email) {
+            mailList.style.display = 'none';
+            backButton.style.display = 'block';
+            emailContent.style.display = 'block';
+            emailContent.innerHTML = `
+                <h3>${email.subject}</h3>
+                <p><strong>From:</strong> ${email.sender}</p>
+                <p>${email.content}</p>
+            `;
+        }
+
+        // Go back to the inbox
+        function goBack() {
+            mailList.style.display = 'block';
+            backButton.style.display = 'none';
+            emailContent.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
